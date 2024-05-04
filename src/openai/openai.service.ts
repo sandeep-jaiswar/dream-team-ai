@@ -27,7 +27,7 @@ export class OpenAIService {
       );
       return response.data;
     } catch (error) {
-      console.error('Error analyzing match data:', error);
+      console.error('Error analyzing match data:', { error, data: matchData });
       throw error;
     }
   }
