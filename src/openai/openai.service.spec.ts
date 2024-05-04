@@ -25,20 +25,22 @@ describe('OpenAIService', () => {
       const mockData = { analysis: 'positive' };
       const matchData = 'sample match data';
 
-      mockAxios.onPost('https://api.openai.com/v1/analyze').reply(200, mockData);
+      mockAxios
+        .onPost('https://api.openai.com/v1/analyze')
+        .reply(200, mockData);
 
       const result = await service.analyzeMatchData(matchData);
       expect(result).toEqual(mockData);
     });
 
     it('should handle errors when the API call fails', async () => {
-      const error = new Error('Network error');
+      const error = new Error('Network Error');
       const matchData = 'sample match data';
 
       mockAxios.onPost('https://api.openai.com/v1/analyze').networkError();
 
       await expect(service.analyzeMatchData(matchData)).rejects.toThrow(
-        'Network Error',
+        error.message,
       );
     });
   });
